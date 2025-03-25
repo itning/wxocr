@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/wechat_ocr"]
 include = [
-    "src/wechat_ocr/wechat/*",
+    "src/wechat_ocr/wechat/**",
     "src/wechat_ocr/wcocr.cpython-312-x86_64-linux-gnu.so",
 ]
 
