@@ -15,6 +15,10 @@ from . import wcocr  # 你的 wcocr 扩展模块
 log_dir = Path("logs")
 log_dir.mkdir(exist_ok=True)
 
+# token
+TOKEN = os.getenv("TOKEN", "mysecrettoken")
+FE_TOKEN = os.getenv("FE_TOKEN", "mysecrettoken")
+
 # 配置日志输出
 logger.remove()  # 移除默认的处理器
 logger.add(
@@ -62,7 +66,7 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
             detail="Invalid authentication scheme",
         )
     # 简单固定值校验，可根据实际需要改成更复杂的验证逻辑
-    if credentials.credentials != "mysecrettoken":
+    if credentials.credentials != TOKEN and credentials.credentials != FE_TOKEN:
         logger.warning("Invalid token provided")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
