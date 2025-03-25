@@ -175,7 +175,7 @@ def main():
     
     logger.info("Starting OCR service on 0.0.0.0:5001")
     import uvicorn
-    uvicorn.run("app", host="0.0.0.0", port=5001, reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=5001)
 
 
 if __name__ == "__main__":

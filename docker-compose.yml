@@ -1,0 +1,55 @@
+services:
+  wxocr1:
+    image: ghcr.io/vccddd/wxocr:1.1.0
+    restart: always
+    hostname: wxocr1
+    networks:
+      - wxocr_network
+    environment:
+      - NODE_ID=1
+
+  wxocr2:
+    image: ghcr.io/vccddd/wxocr:1.1.0
+    restart: always
+    hostname: wxocr2
+    networks:
+      - wxocr_network
+    environment:
+      - NODE_ID=2
+
+  wxocr3:
+    image: ghcr.io/vccddd/wxocr:1.1.0
+    restart: always
+    hostname: wxocr3
+    networks:
+      - wxocr_network
+    environment:
+      - NODE_ID=3
+
+  wxocr4:
+    image: ghcr.io/vccddd/wxocr:1.1.0
+    restart: always
+    hostname: wxocr4
+    networks:
+      - wxocr_network
+    environment:
+      - NODE_ID=4
+
+  haproxy:
+    image: haproxy:latest
+    restart: always
+    hostname: haproxy
+    ports:
+      - "32488:8080"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    networks:
+      - wxocr_network
+    depends_on:
+      - wxocr1
+      - wxocr2
+      - wxocr3
+      - wxocr4
+
+networks:
+  wxocr_network:
