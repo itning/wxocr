@@ -1,15 +1,7 @@
-FROM python:3.12-slim
+FROM golangboyme/wxocr:latest
 
-RUN apt-get update && apt-get install -y \
-    libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
+RUN pip install flask_cors
 
-RUN pip install uv
+COPY main.py /app/main.py
 
-COPY . /app
-
-WORKDIR /app
-
-RUN uv sync
-
-ENTRYPOINT [ "uv", "run", "wechat-ocr" ]
+COPY templates /app/templates
